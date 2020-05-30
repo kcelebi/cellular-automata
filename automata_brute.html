@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cellular Automata</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+		<script>
+			var x= 300;
+			var y = 300;
+			var mat = [];
+			function setup(){
+				createCanvas(3000, 3000);
+				var c = 0;
+				for(var i=0; i < y; i++){
+					var sup = [];
+					for(var j =0; j < x; j++){
+						var num = Math.floor(Math.random()*2);
+						if(num == 1 && c < x+200){
+							sup.push(1);
+							c++;
+						}
+						else{
+							sup.push(0);
+						}
+						
+					}
+					mat.push(sup);
+				}
+			}
+			
+			function draw(){
+				background(0);
+				for(var y_ =0; y_<y; y_++){
+					for(var x_= 0; x_<x;x_++){
+						if(mat[y_][x_] == 1){
+							fill(255);
+							rect(x_*width/x,y_*height/y,width/x,height/y);
+							console.log(height/y)
+						}
+						
+					}
+				}
+				update();
+			}
+
+			function update(){
+				f = mat;
+				for(var y_ =0; y_<y; y_++){
+					for(var x_= 0; x_<x;x_++){
+						var n = [
+								[y_+1,x_],
+								[y_-1,x_],
+								[y_+1,x_+1],
+								[y_,x_+1],
+								[y_-1,x_+1],
+								[y_+1,x_-1],
+								[y_,x_-1],
+								[y_-1,x_-1]
+								]
+						var alive = 0;
+						for(var p = 0; p < n.length; p++){
+							if(in_bounds(n[p][0],n[p][1]) && mat[n[p][0]][n[p][1]] == 1){
+								alive ++;
+							}
+						}
+						if(mat[y_][x_] == 1 && (alive <2 || alive >3)){
+							f[y_][x_] = 0;
+						}
+						else if( mat[y_][x_] == 0 && alive == 3){
+							f[y_][x_] = 1;
+						}
+							
+					}
+				}
+				mat = f;
+
+			}
+
+			function in_bounds(a,b){
+				if(a>-1 && b >-1 && a < x && b < y){
+					return true;
+				}
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
