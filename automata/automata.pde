@@ -6,8 +6,8 @@ float y;
 void setup(){
   background(0);
   size(1200,1020);
-  String link = "/Users/kayacelebi/Projects/Cellular_Automata/1000x1000ca.txt";
-  x = Integer.parseInt(link.split("/")[5].split("x")[0]);
+  String link = "/Users/kayacelebi/Projects/Cellular_Automata/Full_Files/100x100ca.txt";
+  x = Integer.parseInt(link.split("/")[6].split("x")[0]);
   y = x;
   reader = createReader(link);
 }

@@ -4,7 +4,7 @@ import random
 import os
 
 filend = "ca.txt"
-y,x = 1600, 2560
+y,x = 100, 100
 param = 10
 
 #filename = "/Volumes/KayaHD/Projects/Cellular_Automata/" + str(x) + "x" + str(y) + filend
@@ -78,7 +78,7 @@ while i < param:
 	for p in mat:
 		f.write(str(p).replace("[","").replace("]","").replace(" ","") + "\n")
 	#f.write("-\n")
-	f.close()
+	#f.close()
 	#display_array(mat)
 	#time.sleep(0.5)
 	i+=1
@@ -87,4 +87,4 @@ while i < param:
 
 #os.system('python3 get_size.py ' + str(filename) + ' ' + str(x*y/0.5*param/1000000)) #run 2nd program
 
-#os.system('processing-java --sketch=/Users/kayacelebi/Projects/Cellular_Automata/automata --run') 
+os.system('processing-java --sketch=/Users/kayacelebi/Projects/Cellular_Automata/code/automata --run') 
