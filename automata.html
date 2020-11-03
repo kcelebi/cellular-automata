@@ -4,8 +4,8 @@
 		<title>Cellular Automata</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
 		<script>
-			var x=90;
-			var y=60;
+			var x=300;
+			var y=100;
 			var mat = [];
 			var dead = 0;
 			
@@ -17,7 +17,7 @@
 					var sup = [];
 					for(var j =0; j < x; j++){
 						var num = Math.floor(Math.random()*2);
-						if(num == 1 && c < x+200){
+						if(num == 1 && c < x+2000){
 							sup.push(1);
 							c++;
 						}
