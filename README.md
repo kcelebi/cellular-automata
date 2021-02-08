@@ -1,4 +1,4 @@
-# Cellular-Automata
+# Cellular-Automata 🔬
 
 This set of programs creates and simulates scenarios of Cellular Automata, particularly the Game of Life. 
 
