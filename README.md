@@ -1,6 +1,7 @@
 # Cellular-Automata 🔬
 
-https://user-images.githubusercontent.com/35543500/111094634-14cfcb80-8512-11eb-96c8-c687dfc4c36d.mov
+
+https://user-images.githubusercontent.com/35543500/111094823-74c67200-8512-11eb-912b-8e90c0995334.mp4
 
 
 This set of programs creates and simulates scenarios of Cellular Automata, particularly the Game of Life. 
