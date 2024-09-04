@@ -6,6 +6,9 @@
 
 This set of programs creates and simulates scenarios of Cellular Automata, particularly the Game of Life. 
 
+**Currently updating this repo 9/4/24**
+
+
 * Conway's Game of Life Interactive
 
     I am currently in the process of implementing an interactive demonstration where one can draw different pre-set patterns to a Game of Life simulation. The goal of this is to allow the user the ease of making new patterns, observing simulations of natural phenomena, or discovering new features.
