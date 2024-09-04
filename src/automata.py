@@ -14,12 +14,9 @@ def play(state, n):
 		display_array(state)
 		state = update(state)
 
-
-
 def display_array(mat):
 	y = len(mat)
 	x = len(mat[0])
-	#newmat = [[0]*x]*y
 
 	finstr = ""
 	for y_ in range(y):
@@ -51,7 +48,7 @@ def update(state):
 			# cell death condition
 			if state[i][j] == 1 and (alive < 2 or alive > 3):
 				new_state[i][j] = 0
-			# cell rebirth condiiton
+			# cell rebirth condition
 			elif state[i][j] == 0 and alive == 3:
 				new_state[i][j] = 1
 			# nothing, copy to new state
@@ -67,8 +64,9 @@ def np_update(state):
 	# write a lambda to generate the update
 	return 
 
-	
+
 def get_neighbors(i, j):
+	# we can do this using matmult
 	return np.reshape([[[i + u, j + v] for u in [-1, 1]] for v in [-1, 1]], -1)
 
 def in_range(i, j, state):
