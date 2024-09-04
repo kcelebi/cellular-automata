@@ -1,5 +1,4 @@
 import numpy as np
-import analysis as ans
 
 '''
 	Automata is state by state
@@ -10,38 +9,14 @@ import analysis as ans
 	- model learns to add points to the CA state to achieve some outcome
 '''
 
-def play(state, n, verbose = False):
-	i = 0
-	while i < n and not ans.is_terminal_state(state):
-		if verbose:
-			display_array(state)
-			print(f'i={i}|-------')
-		state = update(state)
-		i += 1
-
-	return state
-
-def display_array(state):
-	x, y = len(state), len(state[0])
-
-	finstr = ""
-	for i in range(x):
-		finstr += '|'
-		for j in range(y):
-			if state[i][j] == 1:
-				finstr += "██"
-			else:
-				finstr += "  "
-		finstr += "|\n"
-	print(finstr)
 
 
 '''
 	Brute force update -- O(n^2)
 '''
 def update(state):
-	x, y = len(state), len(state[0])
-	new_state = [[0]*y]*x
+	x, y = state.shape
+	new_state = np.zeros(state.shape)
 
 	for i in range(x):
 		for j in range(y):
@@ -49,18 +24,18 @@ def update(state):
 			alive = 0
 
 			for [neighbor_i, neighbor_j] in neighbors:
-				if in_range(neighbor_i, neighbor_j, state):
-					alive += state[neighbor_i][neighbor_j]
+				if in_range(neighbor_i, neighbor_j, state.shape):
+					alive += state[neighbor_i, neighbor_j]
 
 			# cell death condition
-			if state[i][j] == 1 and (alive < 2 or alive > 3):
-				new_state[i][j] = 0
+			if state[i, j] == 1 and (alive < 2 or alive > 3):
+				new_state[i, j] = 0
 			# cell rebirth condition
-			elif state[i][j] == 0 and alive == 3:
-				new_state[i][j] = 1
+			elif state[i, j] == 0 and alive == 3:
+				new_state[i, j] = 1
 			# nothing, copy to new state
 			else:
-				new_state[i][j] = state[i][j]
+				new_state[i, j] = state[i,j]
 
 	return new_state
 
@@ -76,9 +51,13 @@ def np_update(state):
 
 def get_neighbors(i, j):
 	# we can do this using matmult
-	return np.reshape([[[i + u, j + v] for u in [-1, 1]] for v in [-1, 1]], (-1, 2))
+	neighbors = np.reshape([[[i + u, j + v] for u in [-1, 0, 1]] for v in [-1, 0, 1]], (-1, 2))
+	return neighbors[~np.all(neighbors == [i, j], axis = 1)]
 
-def in_range(i, j, state):
-	if i < len(state) and i > -1 and j > -1 and j < len(state[0]):
+'''
+	Check the provided coord is in range of the matrix
+'''
+def in_range(i, j, shape):
+	if i < shape[0] and i > -1 and j > -1 and j < shape[1]:
 		return True
 	return False
