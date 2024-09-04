@@ -27,7 +27,7 @@ import numpy as np
 
 	NOTE: this is *not* updating in-place
 '''
-def update(state):
+def update(state, rule):
 	if type(state) != np.array:
 		state = np.array(state, dtype = int)
 
@@ -37,21 +37,7 @@ def update(state):
 	for i in range(x):
 		for j in range(y):
 			neighbors = get_neighbors(i, j)
-			alive = 0
-
-			for [neighbor_i, neighbor_j] in neighbors:
-				if in_range(neighbor_i, neighbor_j, state.shape):
-					alive += state[neighbor_i, neighbor_j]
-
-			# cell death condition
-			if state[i, j] == 1 and (alive < 2 or alive > 3):
-				new_state[i, j] = 0
-			# cell rebirth condition
-			elif state[i, j] == 0 and alive == 3:
-				new_state[i, j] = 1
-			# nothing, copy to new state
-			else:
-				new_state[i, j] = state[i,j]
+			new_state[i, j] = rule(neighbors, state[i, j], state)
 
 	return new_state
 

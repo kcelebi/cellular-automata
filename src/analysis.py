@@ -17,7 +17,7 @@ def is_terminal_state(state):
 # ------------------------------
 
 def get_survival_stats(states):
-	return np.array([[get_total_alive(state), get_total_dead(state)] for state in states])
+	return np.array([get_total_alive(state) for state in states], dtype = int)
 
 # state is 3 dimensional matrix
 def np_get_survival_stats(states):
