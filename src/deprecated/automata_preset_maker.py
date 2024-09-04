@@ -1,27 +1,5 @@
-import time
-import copy
 import random
 import os
-
-def display_array(mat):
-	#y = len(mat)
-	#x = len(mat[0])
-	newmat = []
-	for p in range(y):
-		sub = [0]*x
-		newmat.append(sub)
-
-	for y_ in range(y):
-		for x_ in range(x):
-			if mat[y_][x_] == 1:
-				newmat[y_][x_] = "███"
-			else:
-				newmat[y_][x_] = "   "
-
-	print(" " + "".join(["----" for x in range(x)]))
-	for y_ in range(y):
-		print("|" + " ".join(newmat[y_]) + "|")
-	print(" " + "".join(["----" for x in range(x)])) 
 
 for j in range(5,1000):
 	y,x = j,j

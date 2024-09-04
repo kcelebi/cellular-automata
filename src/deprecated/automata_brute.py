@@ -1,4 +1,3 @@
-import time
 import copy
 import random
 import os
@@ -8,8 +7,10 @@ y,x = 100, 100
 param = 10
 
 #filename = "/Volumes/KayaHD/Projects/Cellular_Automata/" + str(x) + "x" + str(y) + filend
-filename = '/Users/kayacelebi/Projects/Cellular_Automata/Full_Files/' + str(x) + "x" + str(y) + "x" +str(param) + filend
-print(str(x) + "x" + str(y) + filend + " : " + str(x*y/0.5*param/1000000) + "MB")
+#filename = '/Users/kayacelebi/Projects/Cellular_Automata/Full_Files/' + str(x) + "x" + str(y) + "x" +str(param) + filend
+#print(str(x) + "x" + str(y) + filend + " : " + str(x*y/0.5*param/1000000) + "MB")
+
+
 mat = []
 for p in range(y):
 	sub = [random.randint(0,1) for k in range(x)]
@@ -54,14 +55,14 @@ while i < param:
 		for x_ in range(x):
 			curr = [y_,x_]
 			neighbors = [
-					[curr[0]+1,curr[1]+1],
-					[curr[0]+1,curr[1]],
-					[curr[0]+1,curr[1]-1],
-					[curr[0],curr[1]+1],
-					[curr[0],curr[1]-1],
-					[curr[0]-1,curr[1]+1],
-					[curr[0]-1,curr[1]],
-					[curr[0]-1,curr[1]-1]
+							[curr[0]+1,curr[1]+1],
+							[curr[0]+1,curr[1]],
+							[curr[0]+1,curr[1]-1],
+							[curr[0],curr[1]+1],
+							[curr[0],curr[1]-1],
+							[curr[0]-1,curr[1]+1],
+							[curr[0]-1,curr[1]],
+							[curr[0]-1,curr[1]-1]
 					]
 			alive = 0
 			for n in neighbors:
@@ -73,6 +74,7 @@ while i < param:
 				tempmat[y_][x_] = 1
 
 	
+	# Write to file here
 	mat = copy.deepcopy(tempmat)
 	f = open(filename,'a')
 	for p in mat:
@@ -80,11 +82,9 @@ while i < param:
 	#f.write("-\n")
 	#f.close()
 	#display_array(mat)
-	#time.sleep(0.5)
 	i+=1
 
-#subprocess.call(['open', '-W', '-a', 'Terminal.app', 'python', str(filename) + ' ' + str(x*y/0.5*param/1000000), 'get_size.py'])
-
-#os.system('python3 get_size.py ' + str(filename) + ' ' + str(x*y/0.5*param/1000000)) #run 2nd program
-
+'''
+	Draws this out with processing
+'''
 os.system('processing-java --sketch=/Users/kayacelebi/Projects/Cellular_Automata/code/automata --run') 
