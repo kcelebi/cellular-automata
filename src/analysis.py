@@ -3,12 +3,12 @@ import automata as atm
 
 def get_total_alive(state):
 	if type(state) != np.array:
-		state = np.array(state)
+		state = np.array(state, dtype = int)
 	return (state == 1).sum()
 
 def get_total_dead(state):
 	if type(state) != np.array:
-		state = np.array(state)
+		state = np.array(state, dtype = int)
 	return (state == 0).sum()
 
 def is_terminal_state(state):
@@ -46,14 +46,16 @@ def get_random_state(shape):
 
 def play(state, n, verbose = False):
 	i = 0
+	states = [state]
 	while i < n and not is_terminal_state(state):
 		if verbose:
 			display_array(state)
 			print(f'i={i}|-------')
-		state = update(state)
+		state = atm.update(state)
+		states += [state]
 		i += 1
 	
-	return state
+	return states
 
 # ------------------------------ 
 

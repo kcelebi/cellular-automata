@@ -7,16 +7,32 @@ import numpy as np
 	idea -- create reinforcement learning model
 	- we have state, action
 	- model learns to add points to the CA state to achieve some outcome
+	- consider: ask agent to create a certain state, or some qualification using k moves
+			- how does it do it
+
+	- we need pattern detection
+	- we need cycle detection
+		- can we transform each image to a graph...
+		- each state to a graph? 
+
+	- some web server where you can pkay / analyze differnet automata setup
+		- have the interactive code etc
+		- need to port it all to JS
 '''
 
 
 
 '''
 	Brute force update -- O(n^2)
+
+	NOTE: this is *not* updating in-place
 '''
 def update(state):
+	if type(state) != np.array:
+		state = np.array(state, dtype = int)
+
 	x, y = state.shape
-	new_state = np.zeros(state.shape)
+	new_state = np.zeros(state.shape, dtype = int)
 
 	for i in range(x):
 		for j in range(y):
@@ -43,9 +59,7 @@ def np_update(state):
 	x, y = state.shape
 	new_state = np.zeros(state.shape)
 
-
-
-	# write a lambda to generate the update
+	# write a lambda to generate the update more efficiently
 	return 
 
 
