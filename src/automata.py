@@ -1,4 +1,5 @@
 import numpy as np
+import analysis as ans
 
 '''
 	Automata is state by state
@@ -9,23 +10,29 @@ import numpy as np
 	- model learns to add points to the CA state to achieve some outcome
 '''
 
-def play(state, n):
-	for _ in range(n):
-		display_array(state)
+def play(state, n, verbose = False):
+	i = 0
+	while i < n and not ans.is_terminal_state(state):
+		if verbose:
+			display_array(state)
+			print(f'i={i}|-------')
 		state = update(state)
+		i += 1
 
-def display_array(mat):
-	y = len(mat)
-	x = len(mat[0])
+	return state
+
+def display_array(state):
+	x, y = len(state), len(state[0])
 
 	finstr = ""
-	for y_ in range(y):
-		for x_ in range(x):
-			if mat[y_][x_] == 1:
+	for i in range(x):
+		finstr += '|'
+		for j in range(y):
+			if state[i][j] == 1:
 				finstr += "██"
 			else:
-				finstr += "    "
-		finstr += "\n"
+				finstr += "  "
+		finstr += "|\n"
 	print(finstr)
 
 
@@ -41,7 +48,7 @@ def update(state):
 			neighbors = get_neighbors(i, j)
 			alive = 0
 
-			for neighbor_i, neighbor_j in neighbors:
+			for [neighbor_i, neighbor_j] in neighbors:
 				if in_range(neighbor_i, neighbor_j, state):
 					alive += state[neighbor_i][neighbor_j]
 
@@ -61,13 +68,15 @@ def np_update(state):
 	x, y = state.shape
 	new_state = np.zeros(state.shape)
 
+
+
 	# write a lambda to generate the update
 	return 
 
 
 def get_neighbors(i, j):
 	# we can do this using matmult
-	return np.reshape([[[i + u, j + v] for u in [-1, 1]] for v in [-1, 1]], -1)
+	return np.reshape([[[i + u, j + v] for u in [-1, 1]] for v in [-1, 1]], (-1, 2))
 
 def in_range(i, j, state):
 	if i < len(state) and i > -1 and j > -1 and j < len(state[0]):
