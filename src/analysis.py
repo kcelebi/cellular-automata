@@ -3,21 +3,21 @@ import automata as atm
 from rules import Rules
 
 def get_total_alive(state):
-	if type(state) != np.array:
-		state = np.array(state, dtype = int)
+	state = state_fix(state)
 	return (state == 1).sum()
 
 def get_total_dead(state):
-	if type(state) != np.array:
-		state = np.array(state, dtype = int)
+	state = state_fix(state)
 	return (state == 0).sum()
 
 def is_terminal_state(state):
+	state = state_fix(state)
 	return get_total_alive(state) == 0
 
 # ------------------------------
 
 def get_survival_stats(states):
+	state = state_fix(state)
 	return np.array([get_total_alive(state) for state in states], dtype = int)
 
 # each cell represents how many alive neighbors it has
@@ -25,6 +25,8 @@ def get_survival_stats(states):
 	O(8n^2)... whatever
 '''
 def get_alive_matrix(state):
+	state = state_fix(state)
+
 	x, y = state.shape
 	alive_mat = np.zeros(state.shape)
 	for i in range(x):
@@ -62,6 +64,8 @@ def display_state(state):
 	Use matplotlib to plot a state, works for 1D as well
 '''
 def plot_state(state):
+	state = state_fix(state)
+
 	fig, axs = plt.subplots()
 	if state.shape[0] > 1:
 		axs.imshow(~state[0], cmap = 'gray')
@@ -78,8 +82,7 @@ def plot_state(state):
 # ------------------------------
 
 def play(state, steps, rule = Rules.CONWAY, verbose = False, verbose_func = display_state):
-	if type(state) != np.array:
-		state = np.array(state, dtype = int)
+	state = state_fix(state)
 
 	i = 1
 	states = np.zeros((steps, *state.shape), dtype = int)

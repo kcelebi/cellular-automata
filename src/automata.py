@@ -28,8 +28,7 @@ import numpy as np
 	NOTE: this is *not* updating in-place
 '''
 def update(state, rule):
-	if type(state) != np.array:
-		state = np.array(state, dtype = int)
+	state = state_fix(state)
 
 	x, y = state.shape
 	new_state = np.zeros(state.shape, dtype = int)
@@ -64,3 +63,11 @@ def in_range(i, j, shape):
 	if i < shape[0] and i > -1 and j > -1 and j < shape[1]:
 		return True
 	return False
+
+def state_fix(state):
+	if type(state) != np.array:
+		state = np.array(state, dtype = int)
+		if len(state.shape) == 1:
+			state = state.reshape((1, -1))
+
+	return state
