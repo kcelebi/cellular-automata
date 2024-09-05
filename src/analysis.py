@@ -39,25 +39,6 @@ def get_alive_matrix(state):
 def get_random_state(shape):
 	return np.random.randint(0, 2, size = shape)
 
-# ------------------------------
-
-def play(state, steps, rule = Rules.CONWAY, verbose = False, verbose_func = display_state):
-	if type(state) != np.array:
-		state = np.array(state, dtype = int)
-
-	i = 1
-	states = np.zeros((steps, *state.shape), dtype = int)
-	states[0, :, :] = state
-	while i < steps and not is_terminal_state(state):
-		if verbose:
-			verbose_func(state)
-		
-		state = atm.update(state, rule = rule)
-		states[i, :, :] = state
-		i += 1
-	
-	return states
-
 # ------------------------------ VERBOSE FUNCTIONS
 
 '''
@@ -93,3 +74,22 @@ def plot_state(state):
 	axs.set_yticklabels([])
 	axs.grid()
 	plt.show()
+
+# ------------------------------
+
+def play(state, steps, rule = Rules.CONWAY, verbose = False, verbose_func = display_state):
+	if type(state) != np.array:
+		state = np.array(state, dtype = int)
+
+	i = 1
+	states = np.zeros((steps, *state.shape), dtype = int)
+	states[0, :, :] = state
+	while i < steps and not is_terminal_state(state):
+		if verbose:
+			verbose_func(state)
+		
+		state = atm.update(state, rule = rule)
+		states[i, :, :] = state
+		i += 1
+	
+	return states
