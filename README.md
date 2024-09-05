@@ -1,5 +1,6 @@
 # Cellular-Automata 🔬
-Last update 09/04/2024
+[![celebi-pkg](https://circleci.com/gh/kcelebi/cellular-automata.svg?style=svg)](https://circleci.com/gh/kcelebi/cellular-automata)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![](https://user-images.githubusercontent.com/35543500/111094823-74c67200-8512-11eb-912b-8e90c0995334.mp4)
 
