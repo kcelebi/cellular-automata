@@ -3,10 +3,19 @@ from pathlib import Path
 
 
 class PathHandler(Enum):
-	SRC_ROOT = Path(__file__)
+	SRC_ROOT = Path(__file__).parent
+
+	ML = SRC_ROOT / 'machine_learning'
+	ANALYSIS = SRC_ROOT / 'analysis'
+	SIM = SRC_ROOT / 'sim'
+	
+
+	# ------
+
 	TESTS = SRC_ROOT.parent / 'tests'
 	VIZ = SRC_ROOT.parent / 'visualize'
 	DATA = SRC_ROOT.parent / 'data'
+
 
 	def __truediv__(self, other):
 		return self / (+other if type(other) is PathHandler else other)

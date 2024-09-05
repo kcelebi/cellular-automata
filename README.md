@@ -39,7 +39,7 @@ You can also play through multiple steps which are outputted as a 3D numpy array
 Want to analyze this simulation?
 
     survival_stats = ans.get_survival_stats(states)
-    
+
     plt.plot(survival_stats / (state.shape[0] * state.shape[1]))
     plt.title('Survival Rate')
     plt.xlabel('Time')
@@ -49,6 +49,17 @@ Want to analyze this simulation?
 If you want to design your own rules, you can contribute to the `rules.py` module or write a custom function to pass through to `atm.update()` or `ans.play()`. The provided rule-set is to be applied to each cell in the grid and considers the value of eligible neighbors and itself. As a lambda, your function should be of the form:
 
     my_rule = lambda neighbors, curr_cell, state: ...   # your calculation
+
+### Module Structure
+
+Hierarchy of calls/imports:
+
+- automata.py
+    - rules.py
+        - sim.py
+        - stats.py
+        - analysis.py
+    
 
 ## Contributing
 
