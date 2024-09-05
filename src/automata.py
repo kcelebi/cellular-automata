@@ -64,6 +64,9 @@ def in_range(i, j, shape):
 		return True
 	return False
 
+def get_random_state(shape):
+	return np.random.randint(0, 2, size = shape)
+
 def state_fix(state):
 	if type(state) != np.array:
 		state = np.array(state, dtype = int)

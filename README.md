@@ -12,10 +12,47 @@ This purpose of this project is to test different research ideas for cellular au
 
 ## How to Use
 
-### Repo Structure
+You can utilize these functions and programs by cloning/forking this repository. Depending on future development, the structure of this project might change into a Python package available on PyPI. 
 
+Clone/fork the repository to your local. Obtain the requirements:
+
+    python -m pip install -r requirements.txt
+
+Each stage of an automata simulation involves a `state`. You need to be able to initialize a state, update it, and view/analyze it. To initialize a state, either generate a random one or input it manually (as a 2d numpy or vanilla Python array):
+
+    import src.automata as atm      # contains functions to affect states
+    import src.analysis as ans      # contains functions to analyze states
+    from src.rules import Rules     # contains the different rule-sets
+    
+    state = atm.get_random_state(shape = (5, 4)) # generates a 5 x 4 frame
+    
+    new_state = atm.update(state, rule = Rules.CONWAY) # updates using Conway's Game of Life rules
+
+    ans.plot_state(new_state) # returns plt.imshow() of the provided state
+    ans.display_state(new_state) # prints the state to CLI as ASCII
+
+You can also play through multiple steps which are outputted as a 3D numpy array. Let's play through 15 steps:
+
+    states = ans.play(state, steps = 15, rules = Rules.CONWAY)
+    print(states.shape)     # outputs: (15, 5, 4)
+
+Want to analyze this simulation?
+
+    survival_stats = ans.get_survival_stats(states)
+    
+    plt.plot(survival_stats / (state.shape[0] * state.shape[1]))
+    plt.title('Survival Rate')
+    plt.xlabel('Time')
+    plt.ylabel('Pct Alive')
+    plt.show()
+
+If you want to design your own rules, you can contribute to the `rules.py` module or write a custom function to pass through to `atm.update()` or `ans.play()`. The provided rule-set is to be applied to each cell in the grid and considers the value of eligible neighbors and itself. As a lambda, your function should be of the form:
+
+    my_rule = lambda neighbors, curr_cell, state: ...   # your calculation
 
 ## Contributing
+
+Please feel free to fork and submit a PR. For other queries, I can be reached at my email: kayacelebi17@gmail.com
 
 ## Release Notes
 
