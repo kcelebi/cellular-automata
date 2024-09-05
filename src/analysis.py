@@ -41,25 +41,29 @@ def get_random_state(shape):
 
 # ------------------------------
 
-def play(state, steps, rule = Rules.CONWAY, verbose = False):
+def play(state, steps, rule = Rules.CONWAY, verbose = False, verbose_func = display_state):
 	if type(state) != np.array:
 		state = np.array(state, dtype = int)
 
-	i = 0
-	states = [state]
+	i = 1
+	states = np.zeros((steps, *state.shape), dtype = int)
+	states[0, :, :] = state
 	while i < steps and not is_terminal_state(state):
 		if verbose:
-			display_array(state)
-			#print('-'*state.shape[1])
+			verbose_func(state)
+		
 		state = atm.update(state, rule = rule)
-		states += [state]
+		states[i, :, :] = state
 		i += 1
 	
 	return states
 
-# ------------------------------ 
+# ------------------------------ VERBOSE FUNCTIONS
 
-def display_array(state):
+'''
+	Print the states out in ASCII form to command line
+'''
+def display_state(state):
 	x, y = state.shape
 
 	finstr = ""
@@ -72,3 +76,20 @@ def display_array(state):
 				finstr += "  "
 		finstr += ("|\n" + '--'*state.shape[1]*2)
 	print(finstr)
+
+'''
+	Use matplotlib to plot a state, works for 1D as well
+'''
+def plot_state(state):
+	fig, axs = plt.subplots()
+	if state.shape[0] > 1:
+		axs.imshow(~state[0], cmap = 'gray')
+	else:
+		axs.imshow(~state, cmap = 'gray')
+	
+	axs.set_xticks(np.arange(len(state))+0.5)
+	axs.set_yticks(np.arange(len(state))+0.5)
+	axs.set_xticklabels([])
+	axs.set_yticklabels([])
+	axs.grid()
+	plt.show()
