@@ -36,8 +36,8 @@ def update(state, rule):
 
 	for i in range(x):
 		for j in range(y):
-			neighbors = get_neighbors(i, j)
-			new_state[i, j] = rule(neighbors, state[i, j], state)
+			neighbors = get_neighbors(i, j, shape = state.shape)
+			new_state[i, j] = rule(neighbors, cell = state[i, j], state = state)
 
 	return new_state
 
@@ -48,11 +48,14 @@ def np_update(state):
 	# write a lambda to generate the update more efficiently
 	return 
 
-
-def get_neighbors(i, j):
-	# we can do this using matmult
-	neighbors = np.reshape([[[i + u, j + v] for u in [-1, 0, 1]] for v in [-1, 0, 1]], (-1, 2))
-	return neighbors[~np.all(neighbors == [i, j], axis = 1)]
+'''
+	Returns all valid neighbors
+'''
+def get_neighbors(i, j, shape):
+	# list comp generates all neighbors including center. If center or invalid neighbor,
+	# does i-10, j-10 as coord to remove in next step
+	neighbors = np.reshape([[[i + u, j + v] if in_range(i + u, j + v, shape = shape) else [i - 10, j - 10] for u in [-1, 0, 1]] for v in [-1, 0, 1]], (-1, 2))
+	return neighbors[~np.all(np.logical_or(neighbors == [i, j], neighbors == [i - 10, j - 10]), axis = 1)] # make sure to exlude center and not in-range values
 
 '''
 	Check the provided coord is in range of the matrix

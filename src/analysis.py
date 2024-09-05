@@ -1,5 +1,6 @@
 import numpy as np
 import automata as atm
+from rules import Rules
 
 def get_total_alive(state):
 	if type(state) != np.array:
@@ -19,22 +20,18 @@ def is_terminal_state(state):
 def get_survival_stats(states):
 	return np.array([get_total_alive(state) for state in states], dtype = int)
 
-# state is 3 dimensional matrix
-def np_get_survival_stats(states):
-	return np.apply_along_axis(lambda state: [get_total_alive(state), get_total_dead(state)], 1, states)
-
 # each cell represents how many alive neighbors it has
 '''
-	This is super inefficient...
+	O(8n^2)... whatever
 '''
 def get_alive_matrix(state):
 	x, y = state.shape
 	alive_mat = np.zeros(state.shape)
 	for i in range(x):
 		for j in range(y):
-			for neighbor_i, neighbor_j in atm.get_neighbors(i, j):
-				if atm.in_range(neighbor_i, neighbor_j, state.shape):
-					alive_mat[i, j] += state[neighbor_i, neighbor_j]
+			for neighbor_i, neighbor_j in atm.get_neighbors(i, j, shape = state.shape):
+				alive_mat[i, j] += state[neighbor_i, neighbor_j]
+
 
 	return alive_mat
 # ------------------------------
@@ -44,14 +41,17 @@ def get_random_state(shape):
 
 # ------------------------------
 
-def play(state, n, verbose = False):
+def play(state, steps, rule = Rules.CONWAY, verbose = False):
+	if type(state) != np.array:
+		state = np.array(state, dtype = int)
+
 	i = 0
 	states = [state]
-	while i < n and not is_terminal_state(state):
+	while i < steps and not is_terminal_state(state):
 		if verbose:
 			display_array(state)
-			print(f'i={i}|-------')
-		state = atm.update(state)
+			#print('-'*state.shape[1])
+		state = atm.update(state, rule = rule)
 		states += [state]
 		i += 1
 	
@@ -70,5 +70,5 @@ def display_array(state):
 				finstr += "██"
 			else:
 				finstr += "  "
-		finstr += "|\n"
+		finstr += ("|\n" + '--'*state.shape[1]*2)
 	print(finstr)
