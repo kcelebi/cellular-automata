@@ -1,4 +1,4 @@
-# Cellular-Automata 🔬
+# Cellular Automata 🔬
 [![celebi-pkg](https://circleci.com/gh/kcelebi/cellular-automata.svg?style=svg)](https://circleci.com/gh/kcelebi/cellular-automata)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -20,9 +20,10 @@ Clone/fork the repository to your local. Obtain the requirements:
 
 Each stage of an automata simulation involves a `state`. You need to be able to initialize a state, update it, and view/analyze it. To initialize a state, either generate a random one or input it manually (as a 2d numpy or vanilla Python array):
 
-    import src.automata as atm      # contains functions to affect states
-    import src.analysis as ans      # contains functions to analyze states
-    from src.rules import Rules     # contains the different rule-sets
+    import src.sim.automata as atm      # contains functions to affect states
+    import src.sim.stats as stats      # contains functions to analyze states
+    import src.sim.analys as ans      # contains functions to analyze states
+    from src.sim.rules import Rules     # contains the different rule-sets
     
     state = atm.get_random_state(shape = (5, 4)) # generates a 5 x 4 frame
     
@@ -30,6 +31,8 @@ Each stage of an automata simulation involves a `state`. You need to be able to 
 
     ans.plot_state(new_state) # returns plt.imshow() of the provided state
     ans.display_state(new_state) # prints the state to CLI as ASCII
+
+    num_alive = stats.get_total_alive(new_state)    # get the total alive
 
 You can also play through multiple steps which are outputted as a 3D numpy array. Let's play through 15 steps:
 

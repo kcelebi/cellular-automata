@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 class PathHandler(Enum):
-	SRC_ROOT = Path(__file__).parent
+	SRC_ROOT = Path(__file__)
 
 	ML = SRC_ROOT / 'machine_learning'
 	ANALYSIS = SRC_ROOT / 'analysis'

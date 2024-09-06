@@ -4,7 +4,7 @@ import numpy as np
 import sys
 sys.path.append('../src')
 
-from sim.path_handler import PathHandler as PH
+from path_handler import PathHandler as PH
 import sim.automata as atm
 import analysis.stats as stats
 from sim.rules import Rules
