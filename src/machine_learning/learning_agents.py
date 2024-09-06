@@ -48,27 +48,52 @@ class ValueEstimationAgent(Agent):
 		self.num_training = num_training
 
 	def get_Q_value(self, state, action):
-		...
+		raise NotImplementedError()
 
 	def get_value(self, state):
-		...
+		raise NotImplementedError()
 
 	def get_policy(self, state):
-		...
+		raise NotImplementedError()
 
 	def get_action(self, state):
-		...
+		raise NotImplementedError()
 
 class ReinforcementAgent(ValueEstimationAgent):
 
 	def update(self, state, action, next_state, reward):
-		...
+		raise NotImplementedError()
 
 	def get_legal_actions(self, state):
-		...
+		return self.action_func(state)
 
 	def observe_transition(self, state, action, next_state, delta_reward):
+		self.episode_rewards += delta_reward
+		self.update(state, action, next_state, delta_reward)
+
+	def start_episode(self):
 		...
+
+	def stop_episode(self):
+		...
+
+	def __init__(self, action_func = None, num_training = 100, epsilon = 0.5, alpha = 0.5, gamma = 1):
+		# we should never be in this position, overwrite this later
+		if action_func is None:
+			action_func = lambda state: state.get_legal_actions() # not possible, state not an obj
+
+		self.action_func = action_func
+		self.episodes_so_far = 0
+		self.accum_train_rewards = 0.0
+		self.accum_train_rewards = 0.0
+		self.num_training = int(num_training)
+		self.epsilon = float(epsilon)
+		self.alpha = float(alpha)
+		self.discount = float(gamma)
+
+	
+
+
 
 
 
