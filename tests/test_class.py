@@ -5,13 +5,12 @@ import sys
 sys.path.append('../src')
 
 from path_handler import PathHandler as PH
-import automata as atm
-import analysis as ans
-from rules import Rules
+import sim.automata as atm
+import analysis.stats as stats
+from sim.rules import Rules
 
 def test_tautology():
 	assert 1 == 1
-
 
 # ------------------------------ AUTOMATA.PY
 

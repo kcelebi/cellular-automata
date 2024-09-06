@@ -1,5 +1,9 @@
 from enum import Enum
-import automata as atm
+
+import sys
+sys.path.append('../')
+
+import sim.automata as atm
 
 # instead of just conway's, define a 
 # lambda for arbitrary rule sets
