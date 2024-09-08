@@ -101,7 +101,7 @@ class ReinforcementAgent(ValueEstimationAgent):
 	
 
 	'''
-		actionFn: Function which takes a state and returns the list of legal actions
+		action_func: Function which takes a state and returns the list of legal actions
 
 		alpha    - learning rate
 		epsilon  - exploration rate
