@@ -20,28 +20,28 @@ class Agent:
 class ValueEstimationAgent(Agent):
 	
 	"""
-      Abstract agent which assigns values to (state,action)
-      Q-Values for an environment. As well as a value to a
-      state and a policy given respectively by,
+		Abstract agent which assigns values to (state,action)
+		Q-Values for an environment. As well as a value to a
+		state and a policy given respectively by,
 
-      V(s) = max_{a in actions} Q(s,a)
-      policy(s) = arg_max_{a in actions} Q(s,a)
+		V(s) = max_{a in actions} Q(s,a)
+		policy(s) = arg_max_{a in actions} Q(s,a)
 
-      Both ValueIterationAgent and QLearningAgent inherit
-      from this agent. While a ValueIterationAgent has
-      a model of the environment via a MarkovDecisionProcess
-      (see mdp.py) that is used to estimate Q-Values before
-      ever actually acting, the QLearningAgent estimates
-      Q-Values while acting in the environment.
-    """
+		Both ValueIterationAgent and QLearningAgent inherit
+		from this agent. While a ValueIterationAgent has
+		a model of the environment via a MarkovDecisionProcess
+		(see mdp.py) that is used to estimate Q-Values before
+		ever actually acting, the QLearningAgent estimates
+		Q-Values while acting in the environment.
+	"""
 
 	def __init__(self, alpha, epsilon, gamma, num_training):
 		'''
-	        alpha    - learning rate
-	        epsilon  - exploration rate
-	        gamma    - discount factor
-	        num_training - number of training episodes, i.e. no learning after these many episodes
-        '''
+			alpha    - learning rate
+			epsilon  - exploration rate
+			gamma    - discount factor
+			num_training - number of training episodes, i.e. no learning after these many episodes
+		'''
 		self.alpha = alpha
 		self.epsilon = epsilon
 		self.gamma = gamma
@@ -71,12 +71,43 @@ class ReinforcementAgent(ValueEstimationAgent):
 		self.episode_rewards += delta_reward
 		self.update(state, action, next_state, delta_reward)
 
+	'''
+		Called by env when new episode is starting
+	'''
 	def start_episode(self):
-		...
+		self.last_state = None
+		self.last_action = None
+		self.episode_rewards = 0.0
 
 	def stop_episode(self):
-		...
+		if self.is_in_training():
+			self.accum_train_rewards += self.episode_rewards
+		else:
+			self.accum_test_rewards += self.episode_rewards
 
+		self.episodes_so_far += 1
+
+		# set vars for testing
+		if self.is_in_testing:
+			self.epsilon = 0.0 		# no exploration
+			self.alpha = 0.0 		# no learning
+
+
+	def is_in_training(self):
+		return self.episodes_so_far < self.num_training
+
+	def is_in_testing(self):
+		return not self.is_in_training
+	
+
+	'''
+		actionFn: Function which takes a state and returns the list of legal actions
+
+		alpha    - learning rate
+		epsilon  - exploration rate
+		gamma    - discount factor
+		numTraining - number of training episodes, i.e. no learning after these many episodes
+	'''
 	def __init__(self, action_func = None, num_training = 100, epsilon = 0.5, alpha = 0.5, gamma = 1):
 		# we should never be in this position, overwrite this later
 		if action_func is None:
