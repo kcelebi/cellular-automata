@@ -80,8 +80,10 @@ class QLearningAgent(ReinforcementAgent):
 		self.q_values[(state, action)] = self.get_Q_value(state, action) + self.alpha * (reward + self.discount*NSQ - self.get_Q_value(state, action))
 
 
+	def get_policy(self, state):
+		return self.compute_action_from_Q_values(state)
 
-
-
+	def get_value(self, state):
+		return self.compute_value_from_Q_values(state)
 
 
