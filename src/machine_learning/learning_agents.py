@@ -35,7 +35,7 @@ class ValueEstimationAgent(Agent):
 		Q-Values while acting in the environment.
 	"""
 
-	def __init__(self, alpha, epsilon, gamma, num_training):
+	def __init__(self, alpha = 1.0, epsilon = 0.05, gamma = 0.8, num_training = 10):
 		'''
 			alpha    - learning rate
 			epsilon  - exploration rate
