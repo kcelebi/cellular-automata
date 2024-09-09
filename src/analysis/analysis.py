@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 import sys
 sys.path.append('../')
@@ -35,9 +36,9 @@ def plot_state(state):
 
 	fig, axs = plt.subplots()
 	if state.shape[0] > 1:
-		axs.imshow(~state[0], cmap = 'gray')
+		axs.imshow(state, cmap = 'gray')
 	else:
-		axs.imshow(~state, cmap = 'gray')
+		axs.imshow(state[0], cmap = 'gray')
 	
 	axs.set_xticks(np.arange(len(state))+0.5)
 	axs.set_yticks(np.arange(len(state))+0.5)

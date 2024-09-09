@@ -19,6 +19,10 @@ def run(init_state, rule =  Rules.CONWAY, **args):
 
 		action = agent.get_action(state)
 
-		state = state.get_successors(action)
+		agent.do_action(state, action)
+
+		state = state.get_successor(action)
+
+
 
 		print(f"Rewards: {agent.accum_train_rewards}")

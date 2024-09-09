@@ -101,6 +101,10 @@ class ReinforcementAgent(ValueEstimationAgent):
 
 		return state
 
+	def do_action(self, state, action):
+		self.last_state = state
+		self.last_action = action
+
 	'''
 		Called by env when new episode is starting
 	'''
