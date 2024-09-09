@@ -39,7 +39,11 @@ class State:
 	'''
 	def get_successor(self, action):
 		new_state = self.values.copy()
-		new_state[action // self.values.shape[1], action % self.values.shape[1]] = 1
+
+		# -1 means do nothing
+		if action != -1:
+			new_state[action // self.values.shape[1], action % self.values.shape[1]] = 1
+		
 		new_state = atm.update(new_state, rule = self.rule)
 
 		return State(new_state, rule = self.rule)
