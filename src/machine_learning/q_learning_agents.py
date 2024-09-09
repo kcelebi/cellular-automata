@@ -56,7 +56,10 @@ class QLearningAgent(ReinforcementAgent):
 		if len(legal_actions) == 0:
 			return None
 
-		best = sorted([(a, self.get_Q_value(state, a)) for a in legal_actions], key = lambda x: x[1], reverse = True)
+		best = sorted(
+			[(a, self.get_Q_value(state, a)) for a in legal_actions],
+			key = lambda x: x[1], reverse = True
+		)
 		return random.choice([b[0] for b in best if b[1] == best[0][1]])
 	
 	def get_action(self, state):
@@ -75,8 +78,6 @@ class QLearningAgent(ReinforcementAgent):
 	def update(self, state, action, next_state, reward):
 		# from value estmation parent.parent
 		NSQ = self.get_value(next_state)
-
-
 		self.q_values[(state, action)] = self.get_Q_value(state, action) + self.alpha * (reward + self.discount*NSQ - self.get_Q_value(state, action))
 
 

@@ -64,12 +64,37 @@ class ReinforcementAgent(ValueEstimationAgent):
 	def update(self, state, action, next_state, reward):
 		raise NotImplementedError()
 
+
+	'''
+		Provided custom action_func -- to be overloaded into a new class
+
+		Provides the possible legal actions for CA agent
+	'''
 	def get_legal_actions(self, state):
 		return self.action_func(state)
 
+	'''
+		Who calls this?
+	'''
 	def observe_transition(self, state, action, next_state, delta_reward):
 		self.episode_rewards += delta_reward
 		self.update(state, action, next_state, delta_reward)
+
+
+	'''
+		At each point in the game, we observe the state we have just arrived at
+		and assess how that affects our score. 
+	'''
+	def observe_function(self, state):
+
+		if ... :
+			reward = ... #current_reward - prev state reward :: delta_reward
+			self.observe_transition(
+				state = self.last_state,
+				action = self.last_action,
+				next_state = state,
+				delta_reward = reward
+			)
 
 	'''
 		Called by env when new episode is starting
@@ -109,9 +134,6 @@ class ReinforcementAgent(ValueEstimationAgent):
 		numTraining - number of training episodes, i.e. no learning after these many episodes
 	'''
 	def __init__(self, action_func = None, num_training = 100, epsilon = 0.5, alpha = 0.5, gamma = 1):
-		# we should never be in this position, overwrite this later
-		if action_func is None:
-			action_func = lambda state: state.get_legal_actions() # not possible, state not an obj
 
 		self.action_func = action_func
 		self.episodes_so_far = 0
