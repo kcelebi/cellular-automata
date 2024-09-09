@@ -15,7 +15,7 @@ def play(state, steps, rule = Rules.CONWAY, verbose = False, verbose_func = disp
 	i = 1
 	states = np.zeros((steps, *state.shape), dtype = int)
 	states[0, :, :] = state
-	while i < steps and not is_terminal_state(state):
+	while i < steps and not atm.is_terminal_state(state):
 		if verbose:
 			verbose_func(state)
 		

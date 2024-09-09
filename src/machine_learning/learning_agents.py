@@ -74,7 +74,8 @@ class ReinforcementAgent(ValueEstimationAgent):
 		return self.action_func(state)
 
 	'''
-		Who calls this?
+		Called by observe_func after we have actually transitioned ot next state 
+		-- then we have to record it
 	'''
 	def observe_transition(self, state, action, next_state, delta_reward):
 		self.episode_rewards += delta_reward
@@ -87,14 +88,18 @@ class ReinforcementAgent(ValueEstimationAgent):
 	'''
 	def observe_function(self, state):
 
-		if ... :
-			reward = ... #current_reward - prev state reward :: delta_reward
+		# ensure we don't call at first episode
+		if self.last_state is not None:
+			delta_reward = self.reward_func(state) - self.reward_func(self.last_state)
+			
 			self.observe_transition(
 				state = self.last_state,
 				action = self.last_action,
 				next_state = state,
-				delta_reward = reward
+				delta_reward = delta_reward
 			)
+
+		return state
 
 	'''
 		Called by env when new episode is starting
@@ -104,6 +109,9 @@ class ReinforcementAgent(ValueEstimationAgent):
 		self.last_action = None
 		self.episode_rewards = 0.0
 
+	'''
+		Called by env at the end of an episode
+	'''
 	def stop_episode(self):
 		if self.is_in_training():
 			self.accum_train_rewards += self.episode_rewards
@@ -112,7 +120,7 @@ class ReinforcementAgent(ValueEstimationAgent):
 
 		self.episodes_so_far += 1
 
-		# set vars for testing
+		# stop the learning for testing stage
 		if self.is_in_testing:
 			self.epsilon = 0.0 		# no exploration
 			self.alpha = 0.0 		# no learning
@@ -133,16 +141,22 @@ class ReinforcementAgent(ValueEstimationAgent):
 		gamma    - discount factor
 		numTraining - number of training episodes, i.e. no learning after these many episodes
 	'''
-	def __init__(self, action_func = None, num_training = 100, epsilon = 0.5, alpha = 0.5, gamma = 1):
+	def __init__(self, action_func = None, reward_func = None, num_training = 100, epsilon = 0.5, alpha = 0.5, gamma = 1):
 
 		self.action_func = action_func
+		self.reward_func = reward_func
 		self.episodes_so_far = 0
 		self.accum_train_rewards = 0.0
-		self.accum_train_rewards = 0.0
+		self.accum_test_rewards = 0.0
 		self.num_training = int(num_training)
 		self.epsilon = float(epsilon)
 		self.alpha = float(alpha)
 		self.discount = float(gamma)
+
+
+	def final(self, state):
+		delta_reward = get_score() - self.last_state.get_score()
+		#... finsih implementing later
 
 	
 
