@@ -134,7 +134,7 @@ class ReinforcementAgent(ValueEstimationAgent):
 		return self.episodes_so_far < self.num_training
 
 	def is_in_testing(self):
-		return not self.is_in_training
+		return not self.is_in_training()
 	
 
 	'''
