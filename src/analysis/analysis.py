@@ -40,8 +40,8 @@ def plot_state(state):
 	else:
 		axs.imshow(state[0], cmap = 'gray')
 	
-	axs.set_xticks(np.arange(len(state))+0.5)
-	axs.set_yticks(np.arange(len(state))+0.5)
+	axs.set_xticks(np.arange(state.shape[1])+0.5)
+	axs.set_yticks(np.arange(state.shape[0])+0.5)
 	axs.set_xticklabels([])
 	axs.set_yticklabels([])
 	axs.grid()

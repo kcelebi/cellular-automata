@@ -53,7 +53,10 @@ def np_update(state):
 def get_neighbors(i, j, shape):
 	# list comp generates all neighbors including center. If center or invalid neighbor,
 	# does i-10, j-10 as coord to remove in next step
-	neighbors = np.reshape([[[i + u, j + v] if in_range(i + u, j + v, shape = shape) else [i - 10, j - 10] for u in [-1, 0, 1]] for v in [-1, 0, 1]], (-1, 2))
+	neighbors = np.reshape(
+		[[[i + u, j + v] if in_range(i + u, j + v, shape = shape) else [i - 10, j - 10] for u in [-1, 0, 1]] for v in [-1, 0, 1]],
+		size = (-1, 2)
+	)
 	return neighbors[~np.all(np.logical_or(neighbors == [i, j], neighbors == [i - 10, j - 10]), axis = 1)] # make sure to exlude center and not in-range values
 
 '''

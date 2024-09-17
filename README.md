@@ -4,11 +4,13 @@
 
 ![](https://user-images.githubusercontent.com/35543500/111094823-74c67200-8512-11eb-912b-8e90c0995334.mp4)
 
-This purpose of this project is to test different research ideas for cellular automata. This is in the form of hypotheses, demos, simulations, and unstructured trial/error. Some of these hypotheses are:
+This purpose of this project is to test different research ideas for cellular automata. This is in the form of hypotheses, demos, simulations, and unstructured trial/error. The main ideas that have been developed in this repo are:
 
 - How can we detect the self-producing cycles?
 - How can we detect moving cycles? (mobiles)
 - Can a Reinforcement Learning Agent interact with a CA environment to create a desired state?
+
+
 
 ## How to Use
 
