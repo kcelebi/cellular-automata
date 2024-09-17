@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+	
+	<title>Train/Test Page Home</title>
+
+	<h1>View Queued Tests</h1>
+	{% if view %}
+		<h2>Listing Now</h2>
+		{% for test in tests %}
+			<li>{{ test }}</li>
+		{% endfor %}
+	{% else %}
+		<h2>No tests queued</h2>
+	{% endif %}
+</html>
