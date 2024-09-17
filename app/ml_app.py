@@ -1,6 +1,15 @@
-from flask import Flask, render_template
-import numpy as np
+from flask import Flask, render_template, Response
 from markupsafe import escape
+import io
+
+
+# ------------------
+
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import numpy as np
+
+# ------------------
 
 import sys
 sys.path.append('src/')
@@ -18,6 +27,20 @@ def home(view = False):
 
 def get_tests():
 	return ["test1", "test2", "test3", "test4"]
+
+@app.route('/plot')
+def plot_png():
+	fig = create_figure()
+	output = io.BytesIO()
+	FigureCanvas(fig).print_png(output)
+	return Response(output.getvalue(), mimetype='image/png')
+
+def create_figure():
+	fig = Figure()
+	axis = fig.add_subplot(1, 1, 1)
+	axis.plot(range(10), [10, 5, -10, 4, 5, 6, 7, 2, 2, 11])
+	return fig
+
 
 @app.route('/result')
 def result():
