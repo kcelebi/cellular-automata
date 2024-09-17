@@ -55,7 +55,7 @@ def get_neighbors(i, j, shape):
 	# does i-10, j-10 as coord to remove in next step
 	neighbors = np.reshape(
 		[[[i + u, j + v] if in_range(i + u, j + v, shape = shape) else [i - 10, j - 10] for u in [-1, 0, 1]] for v in [-1, 0, 1]],
-		size = (-1, 2)
+		(-1, 2) # shape
 	)
 	return neighbors[~np.all(np.logical_or(neighbors == [i, j], neighbors == [i - 10, j - 10]), axis = 1)] # make sure to exlude center and not in-range values
 

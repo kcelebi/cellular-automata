@@ -28,17 +28,23 @@ def home(view = False):
 def get_tests():
 	return ["test1", "test2", "test3", "test4"]
 
+
+'''
+	Where is this input coming from? Where are we saving data?
+	Where are we processing?
+'''
 @app.route('/plot')
-def plot_png():
-	fig = create_figure()
+def plot_png(xs, ys):
+	fig = create_figure(xs, ys)
 	output = io.BytesIO()
 	FigureCanvas(fig).print_png(output)
 	return Response(output.getvalue(), mimetype='image/png')
 
-def create_figure():
+def create_figure(xs, ys):
 	fig = Figure()
 	axis = fig.add_subplot(1, 1, 1)
-	axis.plot(range(10), [10, 5, -10, 4, 5, 6, 7, 2, 2, 11])
+	#axis.plot(range(10), [10, 5, -10, 4, 5, 6, 7, 2, 2, 11])
+	axis.plot(xs, ys)
 	return fig
 
 
