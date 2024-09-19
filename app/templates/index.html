@@ -1,40 +1,42 @@
 <!doctype html>
 <html>
-	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='styles/index.css') }}">
+	<link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
 
 	
 	<title>Train/Test Page Home</title>
 
-	<div class = 'queued-tests'>
-		<h1>View Queued Tests</h1>
-		{% if view %}
-			<h2>Listing Now</h2>
-			{% for test in tests %}
-				<li>{{ test }}</li>
-			{% endfor %}
-			<img src = '/plot'>
-		{% else %}
-			<h2>No tests queued</h2>
-			<a href="/True"><button type="button">Hack into the tests</button></a>
-		{% endif %}
-
+	<div class = 'tests'>
+		<div class = 'queued'>
+			<h1>View Queued Tests</h1>
+			{% if view %}
+				<h2>Listing Now</h2>
+				{% for test in tests %}
+					<li>{{ test }}</li>
+				{% endfor %}
+				<img src = '/plot'>
+			{% else %}
+				<h2>No tests queued</h2>
+				<a href="/True"><button type="button">Hack into the tests</button></a>
+			{% endif %}
+		</div>
+		<div class = 'add-model'>
+			<form>
+				<label for = "model_name">Model Name:</label>
+				<input type="text" id = "model_name" name="model_name">
+				
+				<label for = "num_sims">Num Sims</label>
+				<input type="text" id = "num_sims" name="num_sims">
+			</form>
+			<button>Add Tests to Queue</button>
+		</div>
 	</div>
+		<div class = 'viz-model'>
 
-	<div class = 'viz-model'>
+			<h1>Visualize a Model</h1>
+			<p>test test test test test</p>
 
-		<h1>Visualize a Model</h1>
-
-	</div>
-
-	<div class = 'add-model'>
-		<h1>Add a Test</h1>
-		<form>
-			<label for = "model_name">Model Name:</label>
-			<input type="text" id = "model_name" name="model_name">
-			
-			<label for = "num_sims">Num Sims</label>
-			<input type="text" id = "num_sims" name="num_sims">
-		</form>
+		</div>
 	</div>
 
 

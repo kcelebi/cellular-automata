@@ -1,0 +1,33 @@
+.tests {
+	padding: 0;
+	margin-left: 5%;
+	width: 45%;
+	float: left;
+}
+
+.queued {
+	margin: 0;
+	padding: 0;
+	width: 40%;
+	float: left;
+}
+
+.add-model {
+	padding: 0;
+	width: 30%;
+	height: 30%;
+	float: right;
+}
+
+/*
+	...............
+	...............
+	...............
+*/
+
+.viz-model {
+	padding: 0;
+	margin-right: 5%;
+	width: 45%;
+	float: right;
+}
