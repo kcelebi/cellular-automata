@@ -34,7 +34,11 @@ def get_tests():
 	Where are we processing?
 '''
 @app.route('/plot')
-def plot_png(xs, ys):
+def plot_png():
+
+	# we load the result from the provided drop down or smthn
+	xs = range(10)
+	ys = [10, 5, -10, 4, 5, 6, 7, 2, 2, 11]
 	fig = create_figure(xs, ys)
 	output = io.BytesIO()
 	FigureCanvas(fig).print_png(output)
@@ -43,7 +47,6 @@ def plot_png(xs, ys):
 def create_figure(xs, ys):
 	fig = Figure()
 	axis = fig.add_subplot(1, 1, 1)
-	#axis.plot(range(10), [10, 5, -10, 4, 5, 6, 7, 2, 2, 11])
 	axis.plot(xs, ys)
 	return fig
 
