@@ -1,8 +1,14 @@
 from flask import Flask, render_template, Response
 from flask_wtf import FlaskForm, CSRFProtect
+from flask_bootstrap import Bootstrap5
+
+# ------------------
+
+from wtforms import IntegerField, StringField, SubmitField
+from wtforms.validators import DataRequired, Length
 from markupsafe import escape
 import io
-
+import secrets
 
 # ------------------
 
@@ -21,10 +27,33 @@ from sim.rules import Rules
 
 app = Flask(__name__)
 
-@app.route('/')
-@app.route('/<view>')
-def home(view = False):
-	return render_template('index.html', view = view, tests = get_tests())
+app.secret_key = secrets.token_urlsafe(16)
+bootstrap = Bootstrap5(app)
+csrf = CSRFProtect(app)
+
+class ModelQueueForm(FlaskForm):
+    name = StringField('Model Name', validators=[DataRequired(), Length(10, 40)])
+    m_param_1 = IntegerField('Parameter 1', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+@app.route('/', methods = ['GET', 'POST'])
+def home():
+	view = True
+	message = ''
+
+	form = ModelQueueForm()
+	if form.validate_on_submit():
+		name = form.name.data
+		param = form.m_param_1.data
+
+		message = 'Model added to queue'
+
+	
+	return render_template('index.html',
+							view = view,
+							tests = get_tests(),
+							form = form,
+							message = message)
 
 def get_tests():
 	return ["test1", "test2", "test3", "test4"]
