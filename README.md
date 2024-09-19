@@ -11,7 +11,6 @@ This purpose of this project is to test different research ideas for cellular au
 - Can a Reinforcement Learning Agent interact with a CA environment to create a desired state?
 
 
-
 ## How to Use
 
 You can utilize these functions and programs by cloning/forking this repository. Depending on future development, the structure of this project might change into a Python package available on PyPI. 
@@ -38,7 +37,7 @@ Each stage of an automata simulation involves a `state`. You need to be able to 
 
 You can also play through multiple steps which are outputted as a 3D numpy array. Let's play through 15 steps:
 
-    states = ans.play(state, steps = 15, rules = Rules.CONWAY)
+    states = sim.play(state, steps = 15, rules = Rules.CONWAY)
     print(states.shape)     # outputs: (15, 5, 4)
 
 Want to analyze this simulation?
@@ -68,7 +67,7 @@ Hierarchy of calls/imports:
 
 ## Contributing
 
-Please feel free to fork and submit a PR. For other queries, I can be reached at my email: kayacelebi17@gmail.com
+Please feel free to fork and submit a PR. For contributions with significant logic and changes, please make a separate test script under the `tests/` and add unit tests. For other queries, I can be reached at my email: kayacelebi17@gmail.com
 
 ## Release Notes
 
